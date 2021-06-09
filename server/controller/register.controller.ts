@@ -7,8 +7,13 @@ export const registerController = async (req: Request, res: Response) => {
     try {
         const errors = validationResult(req);
 
+        const customError: any = {};
+        errors.array().map((err) => {
+            customError[err.param] = err.msg;
+        });
+
         if (!errors.isEmpty()) {
-            return res.status(403).json(errors);
+            return res.status(403).json({ errors: customError, validErr: true });
         }
 
         const bodyParam: IUser = req.body;
