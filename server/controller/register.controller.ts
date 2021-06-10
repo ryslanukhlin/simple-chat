@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
+
 import { UserModel } from '../model/User.model';
 import { IUser } from '../types/User';
 

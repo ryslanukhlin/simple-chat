@@ -1,13 +1,16 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+
 import rootSaga from './action';
 import { AuthReducer } from './reducers/AuthReducer';
 import { RegisterReducer } from './reducers/RegisterReducer';
+import { UserReducer } from './reducers/UserReducer';
 
 const enhancers: Array<any> = [];
 const globalReducer = combineReducers({
     AuthReducer,
     RegisterReducer,
+    UserReducer,
 });
 
 export type TRootState = ReturnType<typeof globalReducer>;

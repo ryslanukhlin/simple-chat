@@ -2,10 +2,10 @@ import React from 'react';
 import { Alert, Button, Form, Input } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import '../scss/Register.scss';
 import { IRegisterForm } from '../types/form/RegisterForm';
 import { useTypeDispatch } from '../hooks/useTypedDispatch';
 import { useTypedSelector } from '../hooks/useTypedSelector';
+import '../scss/Register.scss';
 
 const Register: React.FC = () => {
     const { errors, success } = useTypedSelector((state) => state.RegisterReducer);

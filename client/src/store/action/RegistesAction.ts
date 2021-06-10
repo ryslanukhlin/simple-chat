@@ -8,12 +8,13 @@ import {
     TRegisterFailed,
     TRegisterRequest,
     TRegisterSuccess,
+    TResponseRegisterSuccess,
 } from '../../types/RegisterStore';
 
-function* getDataSaga(
+function* getDataRegister(
     registerRequest: TRegisterRequest,
 ): Generator<
-    | CallEffect<TResponseRegisterErrorValid>
+    | CallEffect<TResponseRegisterErrorValid | TResponseRegisterSuccess>
     | PutEffect<TRegisterSuccess>
     | PutEffect<TRegisterError>
     | PutEffect<TRegisterFailed>,
@@ -21,7 +22,7 @@ function* getDataSaga(
     TResponseRegisterErrorValid
 > {
     try {
-        const data: TResponseRegisterErrorValid = yield call(
+        const data: TResponseRegisterErrorValid | TResponseRegisterSuccess = yield call(
             registerFetchData.bind(null, registerRequest.payload),
         );
         if (data.validErr) {
@@ -35,5 +36,5 @@ function* getDataSaga(
 }
 
 export function* watcherRegisterSaga(): Generator<ForkEffect<never>, void, unknown> {
-    yield takeEvery(RegisterActionEnum.REGISTER_REQUEST, getDataSaga);
+    yield takeEvery(RegisterActionEnum.REGISTER_REQUEST, getDataRegister);
 }

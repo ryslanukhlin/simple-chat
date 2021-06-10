@@ -1,10 +1,10 @@
 import { ServerPort } from '../../config';
 import { IRegisterForm } from '../../types/form/RegisterForm';
-import { TResponseRegisterErrorValid } from '../../types/RegisterStore';
+import { TResponseRegisterErrorValid, TResponseRegisterSuccess } from '../../types/RegisterStore';
 
 export const registerFetchData = async (
     registerForm: IRegisterForm,
-): Promise<TResponseRegisterErrorValid> => {
+): Promise<TResponseRegisterErrorValid | TResponseRegisterSuccess> => {
     const response = await fetch(ServerPort + '/register', {
         method: 'POST',
         headers: {

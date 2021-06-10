@@ -5,6 +5,10 @@ export interface TResponseRegisterErrorValid {
     validErr: boolean;
 }
 
+export interface TResponseRegisterSuccess {
+    error: false;
+}
+
 export interface TErrors {
     nicname?: string;
     email?: string;

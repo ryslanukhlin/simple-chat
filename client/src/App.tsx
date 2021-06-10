@@ -1,9 +1,18 @@
 import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { useTypeDispatch } from './hooks/useTypedDispatch';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
 const App: React.FC = () => {
+    const { userGetInfo } = useTypeDispatch();
+
+    React.useEffect(() => {
+        if (localStorage.getItem('token')) {
+            userGetInfo(localStorage.getItem('token')!);
+        }
+    }, [userGetInfo]);
+
     return (
         <BrowserRouter>
             <Switch>
