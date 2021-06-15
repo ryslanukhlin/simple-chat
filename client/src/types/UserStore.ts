@@ -10,6 +10,7 @@ export type TUserState = {
     isAuth: boolean;
     isError: boolean;
     user: IUser | null;
+    loading: boolean;
 };
 
 export enum UserActionEnum {

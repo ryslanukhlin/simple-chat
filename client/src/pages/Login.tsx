@@ -8,6 +8,7 @@ import { useTypeDispatch } from '../hooks/useTypedDispatch';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 
 const Login: React.FC = () => {
+    const { loading } = useTypedSelector((state) => state.UserReducer);
     const { error } = useTypedSelector((state) => state.AuthReducer);
     const { authRequest, closeAlertError } = useTypeDispatch();
     const [isRememmer, setIsRemember] = React.useState<boolean>(false);
@@ -23,6 +24,9 @@ const Login: React.FC = () => {
     const onSubmitForm = (): void => {
         authRequest(logForm, isRememmer);
     };
+
+    // чтобы не выскакивало
+    if (loading) return <></>;
 
     return (
         <div className="wrapper">
