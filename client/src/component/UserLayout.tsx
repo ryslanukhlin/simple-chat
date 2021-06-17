@@ -29,7 +29,7 @@ const UserLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                         <Link to="/"> Главная</Link>
                     </Menu.Item>
                     <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-                        <Link to="/frebds"> Друзья</Link>
+                        <Link to="/frends"> Друзья</Link>
                     </Menu.Item>
                 </Menu>
             </Sider>

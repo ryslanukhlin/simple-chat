@@ -7,14 +7,15 @@ import { useTypedSelector } from './hooks/useTypedSelector';
 import RouterPage from './Router';
 
 const App: React.FC = () => {
-    const { isAuth } = useTypedSelector((state) => state.UserReducer);
+    const { isAuth, loading } = useTypedSelector((state) => state.UserReducer);
     const { userGetInfo } = useTypeDispatch();
 
     React.useEffect(() => {
-        if (localStorage.getItem('token')) {
-            userGetInfo(localStorage.getItem('token')!);
-        }
+        userGetInfo(localStorage.getItem('token')!);
     }, []);
+
+    // страничка не будет отображена до тех пор пока не получить ответ от сервера
+    if (loading) return <></>;
 
     return (
         <BrowserRouter>
