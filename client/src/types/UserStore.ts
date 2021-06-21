@@ -3,6 +3,9 @@ export interface IUser {
     nicname: string;
     email: string;
     password: string;
+    frends: IUser[];
+    requestFrends: IUser[];
+    applicationFrends: IUser[];
     __v: number;
 }
 
@@ -22,6 +25,7 @@ export enum UserActionEnum {
 export type TUserGetInfo = {
     type: UserActionEnum.USER_GET_INFO;
     payload: string;
+    loading: boolean;
 };
 export type TUserGetInfoSuccess = {
     type: UserActionEnum.USER_GET_INFO_SUCCESS;

@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import 'antd/dist/antd.min.css';
 
 import App from './App';
-import 'antd/dist/antd.min.css';
 import { store } from './store';
+import './Socket';
 
 ReactDOM.render(
     <Provider store={store}>

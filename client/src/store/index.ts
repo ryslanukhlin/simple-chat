@@ -5,12 +5,14 @@ import rootSaga from './action';
 import { AuthReducer } from './reducers/AuthReducer';
 import { RegisterReducer } from './reducers/RegisterReducer';
 import { UserReducer } from './reducers/UserReducer';
+import { NotificationReducer } from './reducers/NotificationReducer';
 
 const enhancers: Array<any> = [];
 const globalReducer = combineReducers({
     AuthReducer,
     RegisterReducer,
     UserReducer,
+    NotificationReducer,
 });
 
 export type TRootState = ReturnType<typeof globalReducer>;

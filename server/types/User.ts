@@ -1,10 +1,6 @@
 import { Document } from 'mongoose';
 
-export interface IUserModel extends Document {
-    login: string;
-    email: string;
-    password: string;
-}
+export type TUserModel = IUser & Document;
 
 export interface IUser {
     login: string;

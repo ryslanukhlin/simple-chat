@@ -1,13 +1,16 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
-import { UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import { UserOutlined, BellOutlined, TeamOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 import '../scss/UserLayout.scss';
+import { useTypedSelector } from '../hooks/useTypedSelector';
+import { CustomBadge } from './CustomElement/CustomBadge';
 
 const { Content, Sider } = Layout;
 
 const UserLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const { NotificationCount } = useTypedSelector((state) => state.NotificationReducer);
     const [collapsed, setCollapse] = React.useState<boolean>(false);
 
     return (
@@ -28,8 +31,29 @@ const UserLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                     <Menu.Item key="1" icon={<UserOutlined />}>
                         <Link to="/"> Главная</Link>
                     </Menu.Item>
-                    <Menu.Item key="2" icon={<VideoCameraOutlined />}>
+                    <Menu.Item key="2" icon={<TeamOutlined />}>
                         <Link to="/frends"> Друзья</Link>
+                    </Menu.Item>
+                    <Menu.Item
+                        key="3"
+                        icon={
+                            collapsed ? (
+                                <CustomBadge
+                                    collapsed={collapsed}
+                                    txt={<BellOutlined />}
+                                    count={NotificationCount}
+                                />
+                            ) : (
+                                <BellOutlined />
+                            )
+                        }>
+                        <Link to="/notification">
+                            <CustomBadge
+                                collapsed={collapsed}
+                                txt={'Уведомления'}
+                                count={collapsed ? 0 : NotificationCount}
+                            />
+                        </Link>
                     </Menu.Item>
                 </Menu>
             </Sider>

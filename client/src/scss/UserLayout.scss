@@ -9,6 +9,34 @@
     margin-top: 14px;
 }
 
-.site-layout .site-layout-background {
+.site-layout-header {
     background: #fff;
+}
+
+.site-layout-background {
+    background: #fff;
+    padding: 10px;
+}
+
+.CustomBadge {
+    position: relative;
+    &__count {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: crimson;
+        width: 17px;
+        height: 17px;
+        border-radius: 50%;
+        top: -3px;
+        right: -16px;
+        font-size: 11px;
+    }
+}
+
+.closed {
+    a {
+        display: none;
+    }
 }

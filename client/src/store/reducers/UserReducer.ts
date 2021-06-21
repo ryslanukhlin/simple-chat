@@ -12,13 +12,13 @@ const defaultState: TUserState = {
     isAuth: false,
     isError: false,
     user: null,
-    loading: true,// при первом рендере странички мы сразу будет запрос на сервер
+    loading: true, // при первом рендере странички мы сразу будет запрос на сервер
 };
 
 export const UserReducer = (state = defaultState, action: TUserAction): TUserState => {
     switch (action.type) {
         case UserActionEnum.USER_GET_INFO:
-            return { ...state, loading: true };
+            return { ...state, loading: action.loading };
         case UserActionEnum.USER_GET_INFO_SUCCESS:
             return { ...state, isAuth: true, user: action.payload, loading: false };
         case UserActionEnum.USER_GET_INFO_ERROR:
@@ -28,9 +28,10 @@ export const UserReducer = (state = defaultState, action: TUserAction): TUserSta
     }
 };
 
-export const userGetInfo = (payload: string): TUserGetInfo => ({
+export const userGetInfo = (payload: string, loading: boolean = true): TUserGetInfo => ({
     type: UserActionEnum.USER_GET_INFO,
     payload,
+    loading,
 });
 export const userGetInfoSuccess = (payload: IUser): TUserGetInfoSuccess => ({
     type: UserActionEnum.USER_GET_INFO_SUCCESS,

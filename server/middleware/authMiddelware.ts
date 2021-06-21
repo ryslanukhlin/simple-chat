@@ -11,7 +11,10 @@ export const authMiddelware = async (req: Request, res: Response, next: NextFunc
         if (token == null) return res.sendStatus(401);
 
         const id = jwt.verify(token, process.env.SECRET_KEY!);
-        const user = await UserModel.findById(id);
+        const user = await UserModel.findById(id)
+            .populate('requestFrends')
+            .populate('frends')
+            .populate('applicationFrends');
         if (user == null) return res.sendStatus(403);
         res.locals.user = user;
         next();

@@ -1,7 +1,13 @@
 import React from 'react';
+import SearchFrends from '../component/SearchFrends';
 
 const Frends: React.FC = () => {
-    return <div>Frends</div>;
+    return (
+        <>
+            <SearchFrends />
+            <hr />
+        </>
+    );
 };
 
 export default Frends;
