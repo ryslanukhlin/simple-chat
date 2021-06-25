@@ -4,14 +4,17 @@ import {
     TNotificationAdd,
     TNotificationClear,
     TNotificationClearFrend,
+    TNotificationMessagesAdd,
+    TNotificationMessagesClear,
     TNotificationNewFrend,
     TNotificationState,
 } from '../../types/NotificationStore';
 import { IUser } from '../../types/UserStore';
 
 const defautlState: TNotificationState = {
-    NotificationCount: 0,
+    NotificationCount: Number(localStorage.getItem('countNotifications')) || 0,
     newFrends: [],
+    NotificationMessages: JSON.parse(localStorage.getItem('NotificationMessages')!) || [],
 };
 
 export const NotificationReducer = (
@@ -20,13 +23,52 @@ export const NotificationReducer = (
 ): TNotificationState => {
     switch (action.type) {
         case NotificationActionEnum.ADD_NOTIFICATION:
+            localStorage.setItem('countNotifications', String(state.NotificationCount + 1));
             return { ...state, NotificationCount: state.NotificationCount + 1 };
         case NotificationActionEnum.NEW_FREND_NOTIFICATION:
             return { ...state, newFrends: [...state.newFrends, action.payload] };
         case NotificationActionEnum.CLEAR_NOTIFICATION:
+            localStorage.removeItem('countNotifications');
             return { ...state, NotificationCount: 0 };
         case NotificationActionEnum.CLEAR_FREND_NOTIFICATION:
             return { ...state, newFrends: [] };
+        case NotificationActionEnum.ADD_NOTIFICATION_MESSAGES:
+            const notificationMessage = state.NotificationMessages.find(
+                (item) => item.roomId === action.payload,
+            );
+            if (typeof notificationMessage !== 'undefined') {
+                notificationMessage.countNewMessage++;
+                const copyNotificationsMessages = [
+                    ...state.NotificationMessages.filter((item) => item.roomId !== action.payload),
+                    notificationMessage,
+                ];
+                localStorage.setItem(
+                    'NotificationMessages',
+                    JSON.stringify(copyNotificationsMessages),
+                );
+                return {
+                    ...state,
+                    NotificationMessages: copyNotificationsMessages,
+                };
+            }
+            const copyNotificationsMessages = [
+                ...state.NotificationMessages,
+                { roomId: action.payload, countNewMessage: 1 },
+            ];
+            localStorage.setItem('NotificationMessages', JSON.stringify(copyNotificationsMessages));
+            return {
+                ...state,
+                NotificationMessages: copyNotificationsMessages,
+            };
+        case NotificationActionEnum.CLEAR_NOTIFICATION_MESSAGES:
+            const copyClearNotificationsMessages = [
+                ...state.NotificationMessages.filter((item) => item.roomId !== action.payload),
+            ];
+            localStorage.setItem(
+                'NotificationMessages',
+                JSON.stringify(copyClearNotificationsMessages),
+            );
+            return { ...state, NotificationMessages: copyClearNotificationsMessages };
         default:
             return state;
     }
@@ -47,4 +89,14 @@ export const clearNotification = (): TNotificationClear => ({
 
 export const clearFrendNotification = (): TNotificationClearFrend => ({
     type: NotificationActionEnum.CLEAR_FREND_NOTIFICATION,
+});
+
+export const addMessageNotification = (payload: string): TNotificationMessagesAdd => ({
+    type: NotificationActionEnum.ADD_NOTIFICATION_MESSAGES,
+    payload,
+});
+
+export const clearMessageNotification = (payload: string): TNotificationMessagesClear => ({
+    type: NotificationActionEnum.CLEAR_NOTIFICATION_MESSAGES,
+    payload,
 });

@@ -8,7 +8,6 @@ import io from '../../Socket';
 function* getUserData(getUserAction: TUserGetInfo) {
     try {
         const data: IUser = yield call(userGetInfoFetch.bind(null, getUserAction.payload));
-        console.log(data);
         yield put(userGetInfoSuccess(data));
         if (getUserAction.loading) io.emit('USER:JOIN_USER', data._id);
     } catch {

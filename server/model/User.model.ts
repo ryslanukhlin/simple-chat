@@ -8,6 +8,7 @@ const UserSchema = new Schema<TUserModel>({
     applicationFrends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     requestFrends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     frends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    rooms: [{ type: Schema.Types.ObjectId, ref: 'MessageRoom' }],
 });
 
 export const UserModel = model<TUserModel>('User', UserSchema);

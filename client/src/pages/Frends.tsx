@@ -1,4 +1,5 @@
 import React from 'react';
+import FrendsPage from '../component/FrendsPage';
 import SearchFrends from '../component/SearchFrends';
 
 const Frends: React.FC = () => {
@@ -6,6 +7,7 @@ const Frends: React.FC = () => {
         <>
             <SearchFrends />
             <hr />
+            <FrendsPage />
         </>
     );
 };

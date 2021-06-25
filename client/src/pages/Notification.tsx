@@ -26,6 +26,9 @@ const Notification: React.FC = () => {
 
     return (
         <>
+            {user?.applicationFrends.length === 0 && newFrends.length === 0 ? (
+                <h1>Нет Уведомлений</h1>
+            ) : null}
             {user?.applicationFrends.length !== 0 ? (
                 <>
                     <h1>Заявки на Дружбу</h1>

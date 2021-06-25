@@ -6,6 +6,7 @@ import { AuthReducer } from './reducers/AuthReducer';
 import { RegisterReducer } from './reducers/RegisterReducer';
 import { UserReducer } from './reducers/UserReducer';
 import { NotificationReducer } from './reducers/NotificationReducer';
+import { PagesMetadataReducer } from './reducers/PagesMetadataReducer';
 
 const enhancers: Array<any> = [];
 const globalReducer = combineReducers({
@@ -13,6 +14,7 @@ const globalReducer = combineReducers({
     RegisterReducer,
     UserReducer,
     NotificationReducer,
+    PagesMetadataReducer,
 });
 
 export type TRootState = ReturnType<typeof globalReducer>;

@@ -14,7 +14,8 @@ export const authMiddelware = async (req: Request, res: Response, next: NextFunc
         const user = await UserModel.findById(id)
             .populate('requestFrends')
             .populate('frends')
-            .populate('applicationFrends');
+            .populate('applicationFrends')
+            .populate({ path: 'rooms', populate: { path: 'users' } });
         if (user == null) return res.sendStatus(403);
         res.locals.user = user;
         next();

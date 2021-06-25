@@ -5,6 +5,8 @@ import { useTypedSelector } from './hooks/useTypedSelector';
 import NotePage from './pages/404';
 import Frends from './pages/Frends';
 import Login from './pages/Login';
+import Message from './pages/Message';
+import Messages from './pages/Messages';
 import Notification from './pages/Notification';
 import Register from './pages/Register';
 import PrviateRouter from './PrviateRouter';
@@ -22,6 +24,13 @@ const RouterPage: React.FC = () => {
             />
             <PrviateRouter auth={isAuth} exact path="/frends" component={Frends} />
             <PrviateRouter auth={isAuth} exact path="/notification" component={Notification} />
+            <PrviateRouter auth={isAuth} exact path="/messages" component={Messages} />
+            <PrviateRouter
+                auth={isAuth}
+                exact
+                path="/messages/:MessageRoomId"
+                component={Message}
+            />
             <Route
                 exact
                 path="/login"

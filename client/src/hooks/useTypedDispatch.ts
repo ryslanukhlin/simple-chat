@@ -9,7 +9,10 @@ import {
     clearNotification,
     addNewFrendNotification,
     clearFrendNotification,
+    addMessageNotification,
+    clearMessageNotification,
 } from '../store/reducers/NotificationReducer';
+import { setCollepsed } from '../store/reducers/PagesMetadataReducer';
 
 const actionCreater = {
     registerRequest,
@@ -21,6 +24,9 @@ const actionCreater = {
     clearNotification,
     addNewFrendNotification,
     clearFrendNotification,
+    setCollepsed,
+    addMessageNotification,
+    clearMessageNotification,
 };
 
 export const useTypeDispatch = () => {

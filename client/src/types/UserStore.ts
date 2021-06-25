@@ -1,3 +1,8 @@
+export interface IRoom {
+    users: IUser[];
+    _id: string;
+}
+
 export interface IUser {
     _id: string;
     nicname: string;
@@ -6,6 +11,7 @@ export interface IUser {
     frends: IUser[];
     requestFrends: IUser[];
     applicationFrends: IUser[];
+    rooms: IRoom[];
     __v: number;
 }
 

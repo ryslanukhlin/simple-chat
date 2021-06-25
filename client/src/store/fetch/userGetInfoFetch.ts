@@ -2,7 +2,6 @@ import { ServerPort } from '../../config';
 import { IUser } from '../../types/UserStore';
 
 export const userGetInfoFetch = async (token: string): Promise<IUser> => {
-    console.log(token);
     const response = await fetch(ServerPort + '/user', {
         method: 'GET',
         headers: {

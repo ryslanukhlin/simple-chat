@@ -1,8 +1,14 @@
 import { IUser } from './UserStore';
 
+export type TNotificationMessages = {
+    roomId: string;
+    countNewMessage: number;
+};
+
 export type TNotificationState = {
     NotificationCount: number;
     newFrends: IUser[];
+    NotificationMessages: TNotificationMessages[];
 };
 
 export enum NotificationActionEnum {
@@ -10,6 +16,8 @@ export enum NotificationActionEnum {
     NEW_FREND_NOTIFICATION = 'NEW_FREND_NOTIFICATION',
     CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION',
     CLEAR_FREND_NOTIFICATION = 'CLEAR_FREND_NOTIFICATION',
+    ADD_NOTIFICATION_MESSAGES = 'ADD_NOTIFICATION_MESSAGES',
+    CLEAR_NOTIFICATION_MESSAGES = 'CLEAR_NOTIFICATION_MESSAGES',
 }
 
 export type TNotificationAdd = {
@@ -29,8 +37,20 @@ export type TNotificationClearFrend = {
     type: NotificationActionEnum.CLEAR_FREND_NOTIFICATION;
 };
 
+export type TNotificationMessagesAdd = {
+    type: NotificationActionEnum.ADD_NOTIFICATION_MESSAGES;
+    payload: string;
+};
+
+export type TNotificationMessagesClear = {
+    type: NotificationActionEnum.CLEAR_NOTIFICATION_MESSAGES;
+    payload: string;
+};
+
 export type TNotificationAction =
     | TNotificationAdd
     | TNotificationClear
     | TNotificationNewFrend
-    | TNotificationClearFrend;
+    | TNotificationClearFrend
+    | TNotificationMessagesAdd
+    | TNotificationMessagesClear;
