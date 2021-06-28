@@ -62,7 +62,7 @@ const Login: React.FC = () => {
                     <Button className="btn" type="primary" onClick={onSubmitForm}>
                         Войти
                     </Button>
-                    Or <Link to="/register">Зарегестрироваться</Link>
+                    Или <Link to="/register">Зарегестрироваться</Link>
                 </Form.Item>
             </Form>
         </div>

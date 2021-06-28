@@ -1,3 +1,5 @@
+import { MessageBd } from './socket/messageBd';
+
 export interface IRoom {
     users: IUser[];
     _id: string;
@@ -12,6 +14,8 @@ export interface IUser {
     requestFrends: IUser[];
     applicationFrends: IUser[];
     rooms: IRoom[];
+    unreadMessages: MessageBd[];
+    online: boolean;
     __v: number;
 }
 

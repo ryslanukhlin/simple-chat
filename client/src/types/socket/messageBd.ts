@@ -3,4 +3,5 @@ export type MessageBd = {
     user: string;
     __v: number;
     _id: string;
+    roomId: string;
 };

@@ -1,3 +1,4 @@
+import { MessageBd } from './socket/messageBd';
 import { IUser } from './UserStore';
 
 export type TNotificationMessages = {
@@ -17,6 +18,7 @@ export enum NotificationActionEnum {
     CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION',
     CLEAR_FREND_NOTIFICATION = 'CLEAR_FREND_NOTIFICATION',
     ADD_NOTIFICATION_MESSAGES = 'ADD_NOTIFICATION_MESSAGES',
+    SET_NOTIFICATION_MESSAGES = 'SET_NOTIFICATION_MESSAGES',
     CLEAR_NOTIFICATION_MESSAGES = 'CLEAR_NOTIFICATION_MESSAGES',
 }
 
@@ -42,6 +44,11 @@ export type TNotificationMessagesAdd = {
     payload: string;
 };
 
+export type TNotificationMessagesSet = {
+    type: NotificationActionEnum.SET_NOTIFICATION_MESSAGES;
+    payload: MessageBd[];
+};
+
 export type TNotificationMessagesClear = {
     type: NotificationActionEnum.CLEAR_NOTIFICATION_MESSAGES;
     payload: string;
@@ -53,4 +60,5 @@ export type TNotificationAction =
     | TNotificationNewFrend
     | TNotificationClearFrend
     | TNotificationMessagesAdd
+    | TNotificationMessagesSet
     | TNotificationMessagesClear;

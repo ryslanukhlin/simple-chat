@@ -4,11 +4,14 @@ import {
     TNotificationAdd,
     TNotificationClear,
     TNotificationClearFrend,
+    TNotificationMessages,
     TNotificationMessagesAdd,
     TNotificationMessagesClear,
+    TNotificationMessagesSet,
     TNotificationNewFrend,
     TNotificationState,
 } from '../../types/NotificationStore';
+import { MessageBd } from '../../types/socket/messageBd';
 import { IUser } from '../../types/UserStore';
 
 const defautlState: TNotificationState = {
@@ -33,6 +36,8 @@ export const NotificationReducer = (
         case NotificationActionEnum.CLEAR_FREND_NOTIFICATION:
             return { ...state, newFrends: [] };
         case NotificationActionEnum.ADD_NOTIFICATION_MESSAGES:
+            console.log(3424432);
+
             const notificationMessage = state.NotificationMessages.find(
                 (item) => item.roomId === action.payload,
             );
@@ -60,6 +65,17 @@ export const NotificationReducer = (
                 ...state,
                 NotificationMessages: copyNotificationsMessages,
             };
+        case NotificationActionEnum.SET_NOTIFICATION_MESSAGES:
+            const setNotificationsMessages: TNotificationMessages[] = [];
+            action.payload.forEach((messageDb) => {
+                const NotificationMessage = setNotificationsMessages.find(
+                    (NotificationMessage) => NotificationMessage.roomId === messageDb.roomId,
+                );
+                if (NotificationMessage) NotificationMessage.countNewMessage++;
+                else
+                    setNotificationsMessages.push({ roomId: messageDb.roomId, countNewMessage: 1 });
+            });
+            return { ...state, NotificationMessages: setNotificationsMessages };
         case NotificationActionEnum.CLEAR_NOTIFICATION_MESSAGES:
             const copyClearNotificationsMessages = [
                 ...state.NotificationMessages.filter((item) => item.roomId !== action.payload),
@@ -93,6 +109,11 @@ export const clearFrendNotification = (): TNotificationClearFrend => ({
 
 export const addMessageNotification = (payload: string): TNotificationMessagesAdd => ({
     type: NotificationActionEnum.ADD_NOTIFICATION_MESSAGES,
+    payload,
+});
+
+export const setMessageNotification = (payload: MessageBd[]): TNotificationMessagesSet => ({
+    type: NotificationActionEnum.SET_NOTIFICATION_MESSAGES,
     payload,
 });
 

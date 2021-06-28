@@ -12,7 +12,6 @@ interface Props {
 }
 
 const MessageItem: React.FC<Props> = ({ room }) => {
-    console.log(room);
     const frendRef = React.useRef<IUser>();
     const router = useHistory();
     const [notificationMessage, setNotificationMessage] = React.useState<TNotificationMessages>();

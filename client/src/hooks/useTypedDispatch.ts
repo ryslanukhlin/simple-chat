@@ -11,6 +11,7 @@ import {
     clearFrendNotification,
     addMessageNotification,
     clearMessageNotification,
+    setMessageNotification,
 } from '../store/reducers/NotificationReducer';
 import { setCollepsed } from '../store/reducers/PagesMetadataReducer';
 
@@ -27,6 +28,7 @@ const actionCreater = {
     setCollepsed,
     addMessageNotification,
     clearMessageNotification,
+    setMessageNotification,
 };
 
 export const useTypeDispatch = () => {

@@ -13,6 +13,8 @@ import { leaveUser } from './socket/LEAVE_USER';
 import { addFrend } from './socket/ADD_FREND';
 import { joinMessageRoom } from './socket/JOIN_MESSAGE_ROOM';
 import { sendMessage } from './socket/SEND_MESSAGE';
+import { disconect } from './socket/disconnect';
+import { leaveMessageRoom } from './socket/leaveMessageRoom';
 
 const app: Express = express();
 const httpServer = HTTPServer.createServer(app);
@@ -32,12 +34,15 @@ const start = async (): Promise<void> => {
     });
 
     io.on('connection', (socket) => {
-        joinUser(io, socket);
+        const metaData = { userId: null };
+        joinUser(io, socket, metaData);
         leaveUser(io, socket);
         addFrendRequest(io, socket);
         addFrend(io, socket);
         joinMessageRoom(io, socket);
+        leaveMessageRoom(io, socket);
         sendMessage(io, socket);
+        disconect(io, socket, metaData);
     });
 
     httpServer.listen(PORT, () => {

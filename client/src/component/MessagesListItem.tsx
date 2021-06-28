@@ -23,7 +23,6 @@ const MessagesListItem: React.FC<Props> = ({ message }) => {
 
     return (
         <Comment
-            key={message._id}
             author={isMy ? user?.nicname : frendInfo?.nicname}
             content={<p>{message.text}</p>}
             style={{ backgroundColor: isMy ? 'lightblue' : 'white' }}

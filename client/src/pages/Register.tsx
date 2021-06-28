@@ -86,7 +86,7 @@ const Register: React.FC = () => {
                     <Button className="btn" type="primary" onClick={onSubmitForm}>
                         Зарегестрироваться
                     </Button>
-                    Or <Link to="/login">Войти</Link>
+                    Или <Link to="/login">Войти</Link>
                 </Form.Item>
             </Form>
         </div>

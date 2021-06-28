@@ -9,7 +9,7 @@ import io from './Socket';
 import { IUser } from './types/UserStore';
 
 const App: React.FC = () => {
-    const { isAuth, loading, user } = useTypedSelector((state) => state.UserReducer);
+    const { isAuth, loading } = useTypedSelector((state) => state.UserReducer);
     const { token } = useTypedSelector((state) => state.AuthReducer);
     const toketRef = React.useRef<string | null>(token);
     const { userGetInfo, addNotification, addNewFrendNotification, addMessageNotification } =
@@ -19,9 +19,6 @@ const App: React.FC = () => {
 
     React.useEffect(() => {
         userGetInfo(token || localStorage.getItem('token')!);
-        return () => {
-            io.emit('USER:LEAVR_USER', user?._id);
-        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

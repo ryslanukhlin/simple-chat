@@ -15,7 +15,8 @@ export const authMiddelware = async (req: Request, res: Response, next: NextFunc
             .populate('requestFrends')
             .populate('frends')
             .populate('applicationFrends')
-            .populate({ path: 'rooms', populate: { path: 'users' } });
+            .populate({ path: 'rooms', populate: { path: 'users' } })
+            .populate('unreadMessages');
         if (user == null) return res.sendStatus(403);
         res.locals.user = user;
         next();

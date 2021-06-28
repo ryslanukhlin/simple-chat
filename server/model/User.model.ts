@@ -9,6 +9,8 @@ const UserSchema = new Schema<TUserModel>({
     requestFrends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     frends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     rooms: [{ type: Schema.Types.ObjectId, ref: 'MessageRoom' }],
+    unreadMessages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
+    online: { type: Boolean, default: false },
 });
 
 export const UserModel = model<TUserModel>('User', UserSchema);

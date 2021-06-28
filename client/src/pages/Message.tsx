@@ -15,8 +15,10 @@ const Message: React.FC = () => {
     const roomId = useLocation().pathname.split('/')[2];
     const [messages, setMessages] = React.useState<MessageBd[]>([]);
     const { collapsed } = useTypedSelector((state) => state.PagesMetadataReducer);
+    const { NotificationMessages } = useTypedSelector((state) => state.NotificationReducer);
     const { user } = useTypedSelector((state) => state.UserReducer);
     const { clearMessageNotification } = useTypeDispatch();
+    console.log(messages);
 
     React.useEffect(() => {
         const frend = user?.frends.find((man) => man._id !== user?._id);
@@ -28,6 +30,7 @@ const Message: React.FC = () => {
         io.emit('MESSAGE:JOIN_MESSAGE_ROOM', roomId, user?._id);
         return () => {
             setMessages([]);
+            io.emit('leaveMessageRoom', user?._id);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -47,7 +50,7 @@ const Message: React.FC = () => {
     React.useEffect(() => {
         clearMessageNotification(roomId);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [NotificationMessages.length]);
 
     const sendMessage = (message: string) => {
         io.emit('MESSAGE:SEND_MESSAGE', roomId, user?._id, message, frendRef.current?._id);
@@ -56,7 +59,9 @@ const Message: React.FC = () => {
     return (
         <>
             {messages.length !== 0
-                ? messages.map((message) => <MessagesListItem message={message} />)
+                ? messages.map((message) => (
+                      <MessagesListItem key={message._id} message={message} />
+                  ))
                 : null}
             <div style={{ marginTop: '40px' }}></div>
             <div
