@@ -15,6 +15,7 @@ export type TNotificationState = {
 export enum NotificationActionEnum {
     ADD_NOTIFICATION = 'ADD_NOTIFICATION',
     NEW_FREND_NOTIFICATION = 'NEW_FREND_NOTIFICATION',
+    SET_FREND_NOTIFICATION = 'SET_FREND_NOTIFICATION',
     CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION',
     CLEAR_FREND_NOTIFICATION = 'CLEAR_FREND_NOTIFICATION',
     ADD_NOTIFICATION_MESSAGES = 'ADD_NOTIFICATION_MESSAGES',
@@ -24,11 +25,18 @@ export enum NotificationActionEnum {
 
 export type TNotificationAdd = {
     type: NotificationActionEnum.ADD_NOTIFICATION;
+    payload: number;
+    isSaveLocalstorange: boolean;
 };
 
 export type TNotificationNewFrend = {
     type: NotificationActionEnum.NEW_FREND_NOTIFICATION;
     payload: IUser;
+};
+
+export type TNotificationSetNewFrend = {
+    type: NotificationActionEnum.SET_FREND_NOTIFICATION;
+    payload: IUser[];
 };
 
 export type TNotificationClear = {
@@ -58,6 +66,7 @@ export type TNotificationAction =
     | TNotificationAdd
     | TNotificationClear
     | TNotificationNewFrend
+    | TNotificationSetNewFrend
     | TNotificationClearFrend
     | TNotificationMessagesAdd
     | TNotificationMessagesSet

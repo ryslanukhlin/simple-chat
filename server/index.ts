@@ -15,6 +15,8 @@ import { joinMessageRoom } from './socket/JOIN_MESSAGE_ROOM';
 import { sendMessage } from './socket/SEND_MESSAGE';
 import { disconect } from './socket/disconnect';
 import { leaveMessageRoom } from './socket/leaveMessageRoom';
+import { clearUnreadNotificationAplicationFrends } from './socket/CLEAR_UNREAD_NOT_APL_FRN';
+import { clearNewNotificationFrends } from './socket/CLEAR_NEW_NOT_FRENDS';
 
 const app: Express = express();
 const httpServer = HTTPServer.createServer(app);
@@ -39,6 +41,8 @@ const start = async (): Promise<void> => {
         leaveUser(io, socket);
         addFrendRequest(io, socket);
         addFrend(io, socket);
+        clearUnreadNotificationAplicationFrends(io, socket);
+        clearNewNotificationFrends(io, socket);
         joinMessageRoom(io, socket);
         leaveMessageRoom(io, socket);
         sendMessage(io, socket);

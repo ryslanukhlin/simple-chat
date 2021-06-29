@@ -16,6 +16,8 @@ export interface IUser {
     rooms: IRoom[];
     unreadMessages: MessageBd[];
     online: boolean;
+    unreadNotificationAplicationFrends: string[];
+    newNotificationFrends: IUser[];
     __v: number;
 }
 

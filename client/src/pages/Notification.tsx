@@ -13,6 +13,12 @@ const Notification: React.FC = () => {
     React.useEffect(() => {
         clearNotification();
         localStorage.removeItem('countNotifications');
+        if (user!.unreadNotificationAplicationFrends!.length > 0) {
+            io.emit('USER:CLEAR_UREAD_NOTIFICATION_APLICATION_FRENDS', user?._id);
+        }
+        if (user!.newNotificationFrends!.length > 0) {
+            io.emit('USER:CLEAR_NEW_FRENDS_NOTIFICATION', user?._id);
+        }
         return () => {
             clearFrendNotification();
         };

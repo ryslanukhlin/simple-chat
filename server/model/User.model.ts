@@ -10,6 +10,8 @@ const UserSchema = new Schema<TUserModel>({
     frends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     rooms: [{ type: Schema.Types.ObjectId, ref: 'MessageRoom' }],
     unreadMessages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
+    unreadNotificationAplicationFrends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    newNotificationFrends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     online: { type: Boolean, default: false },
 });
 

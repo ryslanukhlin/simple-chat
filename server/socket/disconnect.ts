@@ -9,6 +9,8 @@ export const disconect = (
 ) => {
     socket.on('disconnecting', async () => {
         if (metaData.userId) {
+            console.log(`какойто шнырь вышел`, metaData.userId);
+
             await UserModel.updateOne({ _id: metaData.userId }, { $set: { online: false } });
         }
     });

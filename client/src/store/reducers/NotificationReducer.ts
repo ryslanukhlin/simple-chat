@@ -9,6 +9,7 @@ import {
     TNotificationMessagesClear,
     TNotificationMessagesSet,
     TNotificationNewFrend,
+    TNotificationSetNewFrend,
     TNotificationState,
 } from '../../types/NotificationStore';
 import { MessageBd } from '../../types/socket/messageBd';
@@ -26,18 +27,23 @@ export const NotificationReducer = (
 ): TNotificationState => {
     switch (action.type) {
         case NotificationActionEnum.ADD_NOTIFICATION:
-            localStorage.setItem('countNotifications', String(state.NotificationCount + 1));
-            return { ...state, NotificationCount: state.NotificationCount + 1 };
+            if (action.isSaveLocalstorange) {
+                localStorage.setItem(
+                    'countNotifications',
+                    String(state.NotificationCount + action.payload),
+                );
+            }
+            return { ...state, NotificationCount: state.NotificationCount + action.payload };
         case NotificationActionEnum.NEW_FREND_NOTIFICATION:
             return { ...state, newFrends: [...state.newFrends, action.payload] };
+        case NotificationActionEnum.SET_FREND_NOTIFICATION:
+            return { ...state, newFrends: action.payload };
         case NotificationActionEnum.CLEAR_NOTIFICATION:
             localStorage.removeItem('countNotifications');
             return { ...state, NotificationCount: 0 };
         case NotificationActionEnum.CLEAR_FREND_NOTIFICATION:
             return { ...state, newFrends: [] };
         case NotificationActionEnum.ADD_NOTIFICATION_MESSAGES:
-            console.log(3424432);
-
             const notificationMessage = state.NotificationMessages.find(
                 (item) => item.roomId === action.payload,
             );
@@ -90,12 +96,22 @@ export const NotificationReducer = (
     }
 };
 
-export const addNotification = (): TNotificationAdd => ({
+export const addNotification = (
+    payload: number = 1,
+    isSaveLocalstorange = true,
+): TNotificationAdd => ({
     type: NotificationActionEnum.ADD_NOTIFICATION,
+    payload,
+    isSaveLocalstorange,
 });
 
 export const addNewFrendNotification = (payload: IUser): TNotificationNewFrend => ({
     type: NotificationActionEnum.NEW_FREND_NOTIFICATION,
+    payload,
+});
+
+export const setNewFrendNotification = (payload: IUser[]): TNotificationSetNewFrend => ({
+    type: NotificationActionEnum.SET_FREND_NOTIFICATION,
     payload,
 });
 

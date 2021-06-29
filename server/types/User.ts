@@ -13,6 +13,8 @@ export interface IUser {
     frends: string[] | IUser[];
     rooms: string[] | IMessageRoom[];
     unreadMessages: IMessage[];
+    unreadNotificationAplicationFrends: IUser[];
+    newNotificationFrends: IUser[];
     online: boolean;
 }
 

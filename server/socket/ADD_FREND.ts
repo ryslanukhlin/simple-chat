@@ -18,6 +18,14 @@ export const addFrend = (
             { $push: { frends: userId, rooms: room._id }, $unset: { requestFrends: userId } },
         );
         const user = await UserModel.findById(userId);
-        io.to(frendId).emit('USER:USER:ADD_FREND_SUCCESS', user);
+        const frend = await UserModel.findById(frendId);
+        if (frend?.online) {
+            io.to(frendId).emit('USER:USER:ADD_FREND_SUCCESS', user);
+        } else {
+            await UserModel.updateOne(
+                { _id: frendId },
+                { $push: { newNotificationFrends: userId } },
+            );
+        }
     });
 };

@@ -8,7 +8,16 @@ export const addFrendRequest = (
 ) => {
     socket.on('USER:ADD_FREND_REQUEST', async (userId: string, frendId: string) => {
         await UserModel.updateOne({ _id: userId }, { $push: { requestFrends: frendId } });
-        await UserModel.updateOne({ _id: frendId }, { $push: { applicationFrends: userId } });
-        io.to(frendId).emit('USER:Notification_ADD_FREND');
+        const frend = await UserModel.findByIdAndUpdate(frendId, {
+            $push: { applicationFrends: userId },
+        });
+        if (frend?.online) {
+            io.to(frendId).emit('USER:Notification_ADD_FREND');
+        } else {
+            await UserModel.updateOne(
+                { _id: frendId },
+                { $push: { unreadNotificationAplicationFrends: userId } },
+            );
+        }
     });
 };
