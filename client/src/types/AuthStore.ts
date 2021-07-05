@@ -18,6 +18,7 @@ export enum AuthActionEnum {
     AUTH_ERROR = 'AUTH_ERROR',
     AUTH_FAILED = 'AUTH_FAILED',
     CLOSE_ALERT_ERROR = 'CLOSE_ALERT_ERROR',
+    CLEAR_AUTH = 'CLEAR_AUTH',
 }
 
 export type TAuthRequsest = {
@@ -43,9 +44,14 @@ export type TCloseAlertError = {
     type: AuthActionEnum.CLOSE_ALERT_ERROR;
 };
 
+export type TClearAuth = {
+    type: AuthActionEnum.CLEAR_AUTH;
+};
+
 export type TAuthAction =
     | TAuthRequsest
     | TAuthSuccess
     | TAuthError
     | TAuthFailed
-    | TCloseAlertError;
+    | TCloseAlertError
+    | TClearAuth;

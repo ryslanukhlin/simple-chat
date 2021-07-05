@@ -22,6 +22,7 @@ const app: Express = express();
 const httpServer = HTTPServer.createServer(app);
 const io = new SocketIoServer(httpServer, { cors: { origin: '*' } });
 
+app.use(express.static('./static'));
 donenv.config();
 app.use(json());
 app.use(cors({ origin: '*' }));

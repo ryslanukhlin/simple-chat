@@ -6,6 +6,7 @@ import {
     TAuthRequsest,
     TAuthState,
     TAuthSuccess,
+    TClearAuth,
     TCloseAlertError,
 } from '../../types/AuthStore';
 import { ILoginForm } from '../../types/form/LoginForm';
@@ -29,6 +30,8 @@ export const AuthReducer = (state = defaultState, action: TAuthAction): TAuthSta
             return { ...state, loading: false, fetchFailed: true };
         case AuthActionEnum.CLOSE_ALERT_ERROR:
             return { ...state, error: false };
+        case AuthActionEnum.CLEAR_AUTH:
+            return { ...state, token: null };
         default:
             return state;
     }
@@ -43,12 +46,19 @@ export const authSuccess = (payload: string): TAuthSuccess => ({
     type: AuthActionEnum.AUTH_SUCCESS,
     payload,
 });
+
 export const authError = (): TAuthError => ({
     type: AuthActionEnum.AUTH_ERROR,
 });
+
 export const authFailed = (): TAuthFailed => ({
     type: AuthActionEnum.AUTH_FAILED,
 });
+
 export const closeAlertError = (): TCloseAlertError => ({
     type: AuthActionEnum.CLOSE_ALERT_ERROR,
+});
+
+export const clearAuth = (): TClearAuth => ({
+    type: AuthActionEnum.CLEAR_AUTH,
 });

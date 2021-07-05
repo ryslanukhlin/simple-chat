@@ -1,14 +1,20 @@
 import { call, put, takeEvery } from '@redux-saga/core/effects';
 
-import { IUser, TUserGetInfo, UserActionEnum } from '../../types/UserStore';
+import { IUser, TUserDownloadAvatar, TUserGetInfo, UserActionEnum } from '../../types/UserStore';
 import { userGetInfoFetch } from '../fetch/userGetInfoFetch';
-import { userGetInfoError, userGetInfoSuccess } from '../reducers/UserReducer';
+import {
+    setFailedDownloadAvatar,
+    userGetInfoError,
+    userGetInfoSuccess,
+} from '../reducers/UserReducer';
 import {
     addNotification,
     setMessageNotification,
     setNewFrendNotification,
 } from '../reducers/NotificationReducer';
 import io from '../../Socket';
+import { clearAuth } from '../reducers/AuthReducer';
+import { userDownloadAvatarFetch } from '../fetch/downloadAvatar';
 
 function* getUserData(getUserAction: TUserGetInfo) {
     try {
@@ -29,6 +35,24 @@ function* getUserData(getUserAction: TUserGetInfo) {
     }
 }
 
+function* userOutput() {
+    localStorage.removeItem('token');
+    yield put(clearAuth());
+}
+
+function* userDownloadAvatar(downloadAvatarAction: TUserDownloadAvatar) {
+    try {
+        const { payload, token } = downloadAvatarAction;
+        const data: IUser = yield call(userDownloadAvatarFetch.bind(null, payload, token));
+        console.log(data);
+        yield put(userGetInfoSuccess(data));
+    } catch (e) {
+        yield put(setFailedDownloadAvatar());
+    }
+}
+
 export function* watcherUserSaga() {
     yield takeEvery(UserActionEnum.USER_GET_INFO, getUserData);
+    yield takeEvery(UserActionEnum.USER_OUTPUT, userOutput);
+    yield takeEvery(UserActionEnum.USER_DOWNLOAD_AVATAR, userDownloadAvatar);
 }

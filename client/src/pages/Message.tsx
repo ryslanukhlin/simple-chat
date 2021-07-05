@@ -18,7 +18,6 @@ const Message: React.FC = () => {
     const { NotificationMessages } = useTypedSelector((state) => state.NotificationReducer);
     const { user } = useTypedSelector((state) => state.UserReducer);
     const { clearMessageNotification } = useTypeDispatch();
-    console.log(messages);
 
     React.useEffect(() => {
         const frend = user?.frends.find((man) => man._id !== user?._id);

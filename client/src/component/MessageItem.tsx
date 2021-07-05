@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 import '../scss/MessageItem.scss';
 import { TNotificationMessages } from '../types/NotificationStore';
+import { ServerPort } from '../config';
 
 interface Props {
     room: IRoom;
@@ -47,7 +48,13 @@ const MessageItem: React.FC<Props> = ({ room }) => {
             ]}>
             <List.Item.Meta
                 avatar={
-                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                    <Avatar
+                        src={
+                            frendRef.current.avatar
+                                ? ServerPort + '/avatar/' + frendRef.current.avatar
+                                : './notAvatar.jpg'
+                        }
+                    />
                 }
                 title={frendRef.current.nicname}
                 description={frendRef.current.email}

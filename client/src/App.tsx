@@ -47,6 +47,20 @@ const App: React.FC = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    React.useEffect(() => {
+        io.on('USER:ADD_FREND_SUCCESS', () => {
+            userGetInfo(toketRef.current || localStorage.getItem('token')!, false);
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    React.useEffect(() => {
+        io.on('USER:ADD_FREND_SUCCESS', () => {
+            userGetInfo(toketRef.current || localStorage.getItem('token')!, false);
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     // страничка не будет отображена до тех пор пока не получить ответ от сервера
     if (loading) return <></>;
 

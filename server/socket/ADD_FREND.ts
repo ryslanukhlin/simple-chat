@@ -17,7 +17,12 @@ export const addFrend = (
             { _id: frendId },
             { $push: { frends: userId, rooms: room._id }, $unset: { requestFrends: userId } },
         );
-        const user = await UserModel.findById(userId);
+        const user = await UserModel.findById(userId)
+            .populate('requestFrends')
+            .populate('frends')
+            .populate('applicationFrends')
+            .populate({ path: 'rooms', populate: { path: 'users' } })
+            .populate('unreadMessages');
         const frend = await UserModel.findById(frendId);
         if (frend?.online) {
             io.to(frendId).emit('USER:USER:ADD_FREND_SUCCESS', user);
@@ -27,5 +32,6 @@ export const addFrend = (
                 { $push: { newNotificationFrends: userId } },
             );
         }
+        io.to(userId).emit('USER:ADD_FREND_SUCCESS');
     });
 };

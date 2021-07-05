@@ -5,6 +5,7 @@ import { IUser } from '../types/UserStore';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import io from '../Socket';
 import { useTypeDispatch } from '../hooks/useTypedDispatch';
+import { ServerPort } from '../config';
 
 interface props {
     user: IUser;
@@ -38,7 +39,11 @@ const SearchFrendsItem: React.FC<props> = ({ user }) => {
             ]}>
             <List.Item.Meta
                 avatar={
-                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                    <Avatar
+                        src={
+                            user.avatar ? ServerPort + '/avatar/' + user.avatar : './notAvatar.jpg'
+                        }
+                    />
                 }
                 title={user.nicname}
                 description={user.email}

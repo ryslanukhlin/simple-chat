@@ -1,5 +1,6 @@
 import { Avatar, List } from 'antd';
 import React from 'react';
+import { ServerPort } from '../config';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 
 const FrendsPage: React.FC = () => {
@@ -16,7 +17,13 @@ const FrendsPage: React.FC = () => {
                     <List.Item>
                         <List.Item.Meta
                             avatar={
-                                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                <Avatar
+                                    src={
+                                        frend.avatar
+                                            ? ServerPort + '/avatar/' + frend.avatar
+                                            : './notAvatar.jpg'
+                                    }
+                                />
                             }
                             title={frend.nicname}
                             description={frend.email}

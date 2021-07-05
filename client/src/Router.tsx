@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { useTypedSelector } from './hooks/useTypedSelector';
+import HomePage from './pages';
 
 import NotePage from './pages/404';
 import Frends from './pages/Frends';
@@ -16,12 +17,7 @@ const RouterPage: React.FC = () => {
 
     return (
         <Switch>
-            <PrviateRouter
-                auth={isAuth}
-                exact
-                path="/"
-                component={() => <h1>Вы зарегестрированы</h1>}
-            />
+            <PrviateRouter auth={isAuth} exact path="/" component={HomePage} />
             <PrviateRouter auth={isAuth} exact path="/frends" component={Frends} />
             <PrviateRouter auth={isAuth} exact path="/notification" component={Notification} />
             <PrviateRouter auth={isAuth} exact path="/messages" component={Messages} />

@@ -5,6 +5,7 @@ import { IMessageRoom } from './MessageRoom';
 export type TUserModel = IUser & Document;
 
 export interface IUser {
+    avatar: string;
     login: string;
     email: string;
     password: string;

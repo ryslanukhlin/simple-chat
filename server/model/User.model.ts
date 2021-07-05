@@ -2,6 +2,7 @@ import { Schema, model } from 'mongoose';
 import { TUserModel } from '../types/User';
 
 const UserSchema = new Schema<TUserModel>({
+    avatar: { type: String },
     nicname: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },

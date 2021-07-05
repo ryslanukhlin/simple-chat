@@ -3,6 +3,7 @@ import { Avatar, Comment } from 'antd';
 import { MessageBd } from '../types/socket/messageBd';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { IUser } from '../types/UserStore';
+import { ServerPort } from '../config';
 
 interface Props {
     message: MessageBd;
@@ -27,7 +28,17 @@ const MessagesListItem: React.FC<Props> = ({ message }) => {
             content={<p>{message.text}</p>}
             style={{ backgroundColor: isMy ? 'lightblue' : 'white' }}
             avatar={
-                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                <Avatar
+                    src={
+                        isMy
+                            ? user?.avatar
+                                ? ServerPort + '/avatar/' + user.avatar
+                                : '../notAvatar.jpg'
+                            : frendInfo?.avatar
+                            ? ServerPort + '/avatar/' + frendInfo.avatar
+                            : '../notAvatar.jpg'
+                    }
+                />
             }
         />
     );

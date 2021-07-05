@@ -1,14 +1,14 @@
 import { Avatar, Button, List } from 'antd';
 import React from 'react';
+import { ServerPort } from '../config';
 import { useTypeDispatch } from '../hooks/useTypedDispatch';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import io from '../Socket';
 
 const Notification: React.FC = () => {
     const { user } = useTypedSelector((state) => state.UserReducer);
-    const { token } = useTypedSelector((state) => state.AuthReducer);
     const { newFrends } = useTypedSelector((state) => state.NotificationReducer);
-    const { userGetInfo, clearNotification, clearFrendNotification } = useTypeDispatch();
+    const { clearNotification, clearFrendNotification } = useTypeDispatch();
 
     React.useEffect(() => {
         clearNotification();
@@ -27,7 +27,6 @@ const Notification: React.FC = () => {
 
     const addFrend = async (frendId: string) => {
         io.emit('USER:ADD_FREND', user?._id, frendId);
-        userGetInfo(localStorage.getItem('token') || token!, false);
     };
 
     return (
@@ -52,7 +51,15 @@ const Notification: React.FC = () => {
                                 ]}>
                                 <List.Item.Meta
                                     avatar={
-                                        <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                        <Avatar
+                                            src={
+                                                potontialFrend?.avatar
+                                                    ? ServerPort +
+                                                      '/avatar/' +
+                                                      potontialFrend?.avatar
+                                                    : './notAvatar.jpg'
+                                            }
+                                        />
                                     }
                                     title={potontialFrend.nicname}
                                     description={potontialFrend.email}
@@ -72,7 +79,13 @@ const Notification: React.FC = () => {
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={
-                                        <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                        <Avatar
+                                            src={
+                                                newFrend?.avatar
+                                                    ? ServerPort + '/avatar/' + newFrend?.avatar
+                                                    : './notAvatar.jpg'
+                                            }
+                                        />
                                     }
                                     title={newFrend.nicname}
                                     description={newFrend.email}
