@@ -5,6 +5,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import HTTPServer from 'http';
 import { Server as SocketIoServer } from 'socket.io';
+import path from 'path';
 
 import globalRouter from './route';
 import { addFrendRequest } from './socket/ADD_FREND_REQUEST';
@@ -22,7 +23,7 @@ const app: Express = express();
 const httpServer = HTTPServer.createServer(app);
 const io = new SocketIoServer(httpServer, { cors: { origin: '*' } });
 
-app.use(express.static('./static'));
+app.use(express.static(path.resolve(__dirname + '/static')));
 donenv.config();
 app.use(json());
 app.use(cors({ origin: '*' }));

@@ -44,7 +44,6 @@ function* userDownloadAvatar(downloadAvatarAction: TUserDownloadAvatar) {
     try {
         const { payload, token } = downloadAvatarAction;
         const data: IUser = yield call(userDownloadAvatarFetch.bind(null, payload, token));
-        console.log(data);
         yield put(userGetInfoSuccess(data));
     } catch (e) {
         yield put(setFailedDownloadAvatar());
