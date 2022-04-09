@@ -1,1 +1,1 @@
-export const ServerPort: string = 'http://localhost:8000';
+export const ServerPort: string = 'http://80.249.148.25:8000';
